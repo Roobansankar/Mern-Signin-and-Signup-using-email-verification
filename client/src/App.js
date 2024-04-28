@@ -9,8 +9,8 @@ function App() {
 
 	return (
 		<Routes>
-			{user && <Route path="/dashboard" exact element={<Main />} />}
-			<Route path="/" exact element={<Signup />} />
+			{user && <Route path="/" exact element={<Main />} />}
+			<Route path="/signup" exact element={<Signup />} />
 			<Route path="/login" exact element={<Login />} />
 			<Route path="/" element={<Navigate replace to="/login" />} />
 			<Route path="/users/:id/verify/:token" element={<EmailVerify />} />
