@@ -16,38 +16,33 @@ const Signup = () => {
   const [error, setError] = useState("");
   const [msg, setMsg] = useState("");
 
-  const handleChange = ({ currentTarget: input }) => {
+ const handleChange = ({ currentTarget: input }) => {
     if (input.type === "file") {
-      setData({ ...data, image: input.files[0] });
+        setData({ ...data, image: input.files[0] });
     } else {
-      const { name, value } = input;
-      let updatedData = { ...data, [name]: value };
+        setData({ ...data, [input.name]: input.value });
 
-      if (name === "mobileNumber") {
-       
-        const isValidMobile = /^[6-9]\d{9}$/.test(value);
-        if (!isValidMobile) {
-          setError(
-            "Mobile number should be 10 digits long and start with 6, 7, 8, or 9."
-          );
-          return;
+        // Validation logic for mobile number
+        if (input.name === "mobileNumber") {
+            const mobileNumberRegex = /^[6-9]\d{9}$/;
+            if (!mobileNumberRegex.test(input.value)) {
+                setError("Mobile number should be 10 digits and start with 6, 7, 8, or 9");
+            } else {
+                setError(""); 
+            }
         }
-      }
 
-      if (name === "email") {
        
-        const isValidEmail = /\S+@\S+\.\S+/.test(value);
-        if (!isValidEmail) {
-          setError("Invalid email address.");
-          return;
+        if (input.name === "email") {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(input.value)) {
+                setError("Invalid email address");
+            } else {
+                setError(""); // Clear error message if validation passes
+            }
         }
-      }
-
-    
-      setData(updatedData);
-      setError(""); 
     }
-  };
+};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
